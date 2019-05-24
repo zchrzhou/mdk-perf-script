@@ -19,3 +19,5 @@ Performace test for Intel MSDK sample
 
 5. show fps
     $ tail -F -q output/*.log 2>/dev/null
+
+Just test pull request
