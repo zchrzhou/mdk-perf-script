@@ -196,8 +196,9 @@ sub transcode_calc
             foreach my $i (0 .. $num - 1)
             {
                 # grep processing time
-                my $result_str = "*** session $i PASSED (MFX_ERR_NONE)";
-                my @proc_time = `grep \"$result_str\"  $item_log_name`;
+                my $result_str_1 = "PASSED (MFX_ERR_NONE)";
+                my $result_str_2 = "session $i";
+                my @proc_time = `cat $item_log_name | grep \"$result_str_1\" | grep \"$result_str_2\"`;
 
                 print "@proc_time\n" if ($debug_flag);
 
@@ -208,7 +209,7 @@ sub transcode_calc
                 printf "$i-time: %.2f sec\n", $time if ($verbose_flag);
 
                 # grep process frames
-                my @proc_frames = `grep \"$result_str\" $item_log_name`;
+                my @proc_frames = `cat $item_log_name | grep \"$result_str_1\" | grep \"$result_str_2\"`;
                 print "@proc_frames\n" if ($debug_flag);
 
                 my $frames = $proc_frames[0];
@@ -234,8 +235,9 @@ sub transcode_calc
             if (`ls $item_log_name`)
             {
                 # grep processing time
-                my $result_str = "*** session 0 PASSED (MFX_ERR_NONE)";
-                my @proc_time = `grep \"$result_str\"  $item_log_name`;
+                my $result_str_1 = "PASSED (MFX_ERR_NONE)";
+                my $result_str_2 = "session 0";
+                my @proc_time = `cat $item_log_name | grep \"$result_str_1\" | grep \"$result_str_2\"`;
 
                 print "@proc_time\n" if ($debug_flag);
 
@@ -246,7 +248,7 @@ sub transcode_calc
                 printf "$i-time: %.2f sec\n", $time if ($verbose_flag);
 
                 # grep process frames
-                my @proc_frames = `grep \"$result_str\" $item_log_name`;
+                my @proc_frames = `cat $item_log_name | grep \"$result_str_1\" | grep \"$result_str_2\"`;
                 print "@proc_frames\n" if ($debug_flag);
 
                 my $frames = $proc_frames[0];
