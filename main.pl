@@ -14,7 +14,7 @@ use cpu_mem;
 use gpu;
 
 
-#$ENV{LIBVA_DRIVERS_PATH} = "/opt/intel/mediasdk/lib64";
+#$ENV{LIBVA_DRIVERS_PATH} = "/opt/intel/mediasdk/lib";
 #$ENV{LIBVA_DRIVER_NAME}  = "iHD";
 
 my $verbose_flag    = $config::conf{"verbose_flag"};

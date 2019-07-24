@@ -33,6 +33,7 @@ sub main {
     my $max_video_e = 0.0;
     my $max_video2  = 0.0;
     my $video2_flag = 0;
+    my $video_e_flag = 0;
 
     foreach my $item (@contents)
     {
@@ -44,7 +45,14 @@ sub main {
 
         $render =~ s/\s*RENDER\s+usage:\s*//;
         $video =~ s/\s*VIDEO\s+usage:\s*//;
-        $video_e =~ s/\s*VIDEO_E\s+usage:\s*//;
+        if ($video_e_flag)
+        {
+            $video_e =~ s/\s*VIDEO_E\s+usage:\s*//;
+        }
+        else
+        {
+            $video_e = "";
+        }
 
         if ($render =~ /[0-9]+\.[0-9]+/)
         {
@@ -52,12 +60,11 @@ sub main {
             $max_render += $render;
         }
 
-        if ($video_e =~ /[0-9]+\.[0-9]+/)
+        if ($video =~ /[0-9]+\.[0-9]+/)
         {
             push @video_list, $video;
             $max_video += $video;
         }
-
 
         if ($video_e =~ /VIDEO2/)
         {
@@ -91,13 +98,23 @@ sub main {
         }
     }
 
-    my $out_render = sprintf "%0.2f", $max_render / scalar(@render_list);
-    my $out_video = sprintf "%0.2f", $max_video / scalar(@video_list);
-    my $out_video_e = sprintf "%0.2f", $max_video_e / scalar(@video_e_list);
+    if (scalar(@render_list))
+    {
+        my $out_render = sprintf "%0.2f", $max_render / scalar(@render_list);
+        print "$out_render%\n";
+    }
 
-    print "$out_render%\n";
-    print "$out_video%\n";
-    print "$out_video_e%\n";
+    if (scalar(@video_list))
+    {
+        my $out_video = sprintf "%0.2f", $max_video / scalar(@video_list);
+        print "$out_video%\n";
+    }
+
+    if ($video_e_flag)
+    {
+        my $out_video_e = sprintf "%0.2f", $max_video_e / scalar(@video_e_list);
+        print "$out_video_e%\n";
+    }
 
     if ($video2_flag)
     {
