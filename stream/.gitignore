@@ -4,3 +4,4 @@ perf-script-stream.tar.gz
 *.mp4
 *.m2t
 *.yuv
+*.sh
